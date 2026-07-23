@@ -18,6 +18,6 @@ keyed_groups:
     separator: "_"
 
 compose:
-  ansible_host: private_ip_address
+  ansible_host: instance_id
   ansible_connection: '"community.aws.aws_ssm"'
   ansible_aws_ssm_region: '"ap-south-1"'
