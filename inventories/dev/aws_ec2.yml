@@ -13,9 +13,9 @@ hostnames:
   - private-ip-address
 
 keyed_groups:
-  - key: tags.Role
-    prefix: ""
-    seperator: ""
+  - key: tags.name
+    prefix: tag_name
+    seperator: "_"
 
 compose:
   ansible_host: private_ip_address
