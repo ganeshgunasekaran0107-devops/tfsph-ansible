@@ -6,8 +6,8 @@ regions:
 
 filters:
   instance-state-name: running
-  tag:project: tfsph
-  tag:Environment: dev
+  tag:project: TFSPH
+  tag:Environment: DEV
 
 hostnames:
   - private-ip-address
