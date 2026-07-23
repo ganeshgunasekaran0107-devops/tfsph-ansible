@@ -6,16 +6,16 @@ regions:
 
 filters:
   instance-state-name: running
-  tag:project: TFSPH
-  tag:Environment: DEV
+  tag:Project: TFSPH
+  tag:Environment: Dev
 
 hostnames:
   - private-ip-address
 
 keyed_groups:
-  - key: tags.name
+  - key: tags.Name
     prefix: tag_name
-    seperator: "_"
+    separator: "_"
 
 compose:
   ansible_host: private_ip_address
