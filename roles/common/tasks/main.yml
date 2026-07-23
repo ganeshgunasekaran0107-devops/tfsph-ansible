@@ -5,7 +5,6 @@
     name:
       - wget
       - unzip
-      - curl
       - tar
     state: present
   become: true
