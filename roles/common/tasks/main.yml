@@ -1,2 +1,11 @@
 ---
 # tasks file for roles/common
+- name: Ensure common packages are installed
+  ansible.builtin.dnf:
+    name:
+      - wget
+      - unzip
+      - curl
+      - tar
+    state: present
+  become: true
