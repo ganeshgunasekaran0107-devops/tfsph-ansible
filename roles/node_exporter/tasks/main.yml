@@ -7,7 +7,7 @@
     state: present
 
 - name: Create node_exporter user
-  ansible.builtin.group: 
+  ansible.builtin.user: 
     name: "{{ node_exporter_user }}"
     group: "{{ node_exporter_group }}"
     system: true
