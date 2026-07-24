@@ -2,14 +2,14 @@
 # tasks file for roles/node_exporter
 - name: Create node_exporter group
   ansible.builtin.group: 
-    name: "{{node_expoter_group}}"
+    name: "{{ node_exporter_group }}"
     system: true
     state: present
 
 - name: Create node_exporter user
   ansible.builtin.group: 
-    name: "{{node_expoter_user}}"
-    group: "{{node_exporter_group}}"
+    name: "{{ node_exporter_user }}"
+    group: "{{ node_exporter_group }}"
     system: true
     shell: /sbin/nologin
     create_home: false
