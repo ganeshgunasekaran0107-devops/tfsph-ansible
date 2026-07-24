@@ -3,6 +3,7 @@
   hosts: 
     - tag_name_tfsph_dev_application_server
     - tag_name_tfsph_dev_monitoring_server
+    - tag_name_tfsph_dev_management_server
   become: true
   roles:
     - node_exporter
