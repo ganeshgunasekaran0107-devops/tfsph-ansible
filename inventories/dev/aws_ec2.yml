@@ -19,3 +19,5 @@ keyed_groups:
 
 compose:
   ansible_host: private_ip_address
+  ansible_connection: >-
+    'local' if tags.Name == 'tfsph-dev-management-server' else 'ssh'
