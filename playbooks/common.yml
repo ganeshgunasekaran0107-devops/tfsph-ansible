@@ -1,0 +1,8 @@
+---
+- name: Ensure common packages are installed on Managed servers
+  hosts: 
+    - tag_name_tfsph_dev_application_server
+    - tag_name_tfsph_dev_monitoring_server
+  become: true
+  roles:
+    - common
