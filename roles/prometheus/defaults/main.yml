@@ -1,2 +1,14 @@
 ---
-# defaults file for roles/prometheus
+prometheus_version: "3.5.0"
+
+prometheus_user: prometheus
+prometheus_group: prometheus
+
+prometheus_config_dir: /etc/prometheus
+prometheus_data_dir: /var/lib/prometheus
+
+prometheus_binary: /usr/local/bin/prometheus
+promtool_binary: /usr/local/bin/promtool
+
+prometheus_port: 9090
+node_exporter_port: 9100

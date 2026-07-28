@@ -1,0 +1,111 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+rule_files:
+  - /etc/prometheus/alert_rules.yml
+
+scrape_configs:
+
+  ##########################################################
+  # Prometheus
+  ##########################################################
+
+  - job_name: "prometheus"
+
+    static_configs:
+      - targets:
+          - "localhost:9090"
+
+  ##########################################################
+  # Monitoring Server Node Exporter
+  ##########################################################
+
+  - job_name: "monitoring-server"
+
+    static_configs:
+      - targets:
+          - "localhost:9100"
+
+  ##########################################################
+  # Application Servers - AWS EC2 Discovery
+  ##########################################################
+
+  - job_name: "application-servers"
+
+    ec2_sd_configs:
+      - region: ap-south-1
+        port: 9100
+
+        filters:
+          - name: tag:Project
+            values:
+              - tfsph
+
+          - name: tag:Environment
+            values:
+              - dev
+
+          - name: tag:Role
+            values:
+              - application
+
+          - name: instance-state-name
+            values:
+              - running
+
+    relabel_configs:
+
+      - source_labels:
+          - __meta_ec2_private_ip
+        target_label: __address__
+        replacement: '${1}:9100'
+
+      - source_labels:
+          - __meta_ec2_instance_id
+        target_label: instance_id
+
+      - source_labels:
+          - __meta_ec2_tag_Name
+        target_label: instance_name
+  ##########################################################
+  # Management Server - AWS EC2 Discovery
+  ##########################################################
+
+  - job_name: "management-server"
+
+    ec2_sd_configs:
+      - region: ap-south-1
+        port: 9100
+
+        filters:
+          - name: tag:Project
+            values:
+              - tfsph
+
+          - name: tag:Environment
+            values:
+              - dev
+
+          - name: tag:Role
+            values:
+              - management
+
+          - name: instance-state-name
+            values:
+              - running
+
+    relabel_configs:
+
+      - source_labels:
+          - __meta_ec2_private_ip
+        target_label: __address__
+        replacement: '${1}:9100'
+
+      - source_labels:
+          - __meta_ec2_instance_id
+        target_label: instance_id
+
+      - source_labels:
+          - __meta_ec2_tag_Name
+        target_label: instance_name
