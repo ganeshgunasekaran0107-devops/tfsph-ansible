@@ -1,0 +1,7 @@
+---
+- name: Configure TFSPH monitoring server
+  hosts: tag_name_tfsph_dev_monitoring_server
+  become: true
+
+  roles:
+    - prometheus
