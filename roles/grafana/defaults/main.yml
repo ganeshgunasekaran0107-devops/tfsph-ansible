@@ -1,2 +1,16 @@
 ---
-# defaults file for roles/grafana
+# Grafana package
+grafana_package: grafana
+
+# Grafana service
+grafana_service: grafana-server
+
+# Grafana server
+grafana_port: 3000
+
+# Prometheus datasource
+grafana_prometheus_url: "http://localhost:9090"
+
+# Datasource provisioning
+grafana_datasource_name: Prometheus
+grafana_datasource_uid: prometheus

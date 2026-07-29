@@ -1,2 +1,19 @@
 ---
-# tasks file for roles/grafana
+- name: Install Grafana repository
+  ansible.builtin.template:
+    src: grafana.repo.j2
+    dest: /etc/yum.repos.d/grafana.repo
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Install Grafana
+  ansible.builtin.dnf:
+    name: "{{ grafana_package }}"
+    state: present
+
+- name: Ensure Grafana is enabled and running
+  ansible.builtin.systemd:
+    name: "{{ grafana_service }}"
+    enabled: true
+    state: started

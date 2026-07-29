@@ -1,0 +1,7 @@
+---
+- name: Install and configure Grafana
+  hosts: tag_name_tfsph_dev_monitoring_server
+  become: true
+
+  roles:
+    - grafana
