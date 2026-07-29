@@ -34,3 +34,37 @@
     group: grafana
     mode: "0640"
   notify: Restart grafana
+
+- name: Ensure Grafana dashboard provisioning directory exists
+  ansible.builtin.file:
+    path: /etc/grafana/provisioning/dashboards
+    state: directory
+    owner: root
+    group: grafana
+    mode: "0755"
+
+- name: Ensure Grafana dashboard directory exists
+  ansible.builtin.file:
+    path: /var/lib/grafana/dashboards
+    state: directory
+    owner: grafana
+    group: grafana
+    mode: "0755"
+
+- name: Configure Grafana dashboard provider
+  ansible.builtin.template:
+    src: provisioning/dashboards/dashboards.yml.j2
+    dest: /etc/grafana/provisioning/dashboards/tfsph.yml
+    owner: root
+    group: grafana
+    mode: "0640"
+  notify: Restart grafana
+
+- name: Deploy TFSPH infrastructure dashboard
+  ansible.builtin.copy:
+    src: dashboards/tfsph-infrastructure.json
+    dest: /var/lib/grafana/dashboards/tfsph-infrastructure.json
+    owner: grafana
+    group: grafana
+    mode: "0644"
+  notify: Restart grafana
