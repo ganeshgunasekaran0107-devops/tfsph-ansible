@@ -17,3 +17,20 @@
     name: "{{ grafana_service }}"
     enabled: true
     state: started
+
+- name: Ensure Grafana datasource provisioning directory exists
+  ansible.builtin.file:
+    path: /etc/grafana/provisioning/datasources
+    state: directory
+    owner: root
+    group: grafana
+    mode: "0755"
+
+- name: Provision Prometheus datasource
+  ansible.builtin.template:
+    src: provisioning/datasources/prometheus.yml.j2
+    dest: /etc/grafana/provisioning/datasources/prometheus.yml
+    owner: root
+    group: grafana
+    mode: "0640"
+  notify: Restart grafana
