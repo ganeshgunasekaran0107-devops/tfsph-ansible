@@ -7,6 +7,7 @@ global:
   smtp_auth_username: "{{ alertmanager_gmail_address }}"
   smtp_auth_password: "{{ gmail_secret.stdout }}"
   smtp_require_tls: true
+  
 
 route:
   receiver: "gmail-alerts"
