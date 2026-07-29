@@ -1,0 +1,7 @@
+---
+- name: Configure TFSPH application servers
+  hosts: tag_name_tfsph_dev_application_server
+  become: true
+
+  roles:
+    - application

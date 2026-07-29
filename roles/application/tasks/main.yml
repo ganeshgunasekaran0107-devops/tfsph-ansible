@@ -1,2 +1,43 @@
 ---
-# tasks file for roles/application
+- name: Install required application packages
+  ansible.builtin.dnf:
+    name:
+      - docker
+      - jq
+    state: present
+
+- name: Ensure Docker service is enabled and running
+  ansible.builtin.systemd:
+    name: docker
+    state: started
+    enabled: true
+
+- name: Add application user to Docker group
+  ansible.builtin.user:
+    name: "{{ application_user }}"
+    groups: docker
+    append: true
+
+- name: Create application base directory
+  ansible.builtin.file:
+    path: "{{ application_base_dir }}"
+    state: directory
+    owner: "{{ application_user }}"
+    group: "{{ application_user }}"
+    mode: "0755"
+
+- name: Create application configuration directory
+  ansible.builtin.file:
+    path: "{{ application_config_dir }}"
+    state: directory
+    owner: "{{ application_user }}"
+    group: "{{ application_user }}"
+    mode: "0750"
+
+- name: Create application log directory
+  ansible.builtin.file:
+    path: "{{ application_logs_dir }}"
+    state: directory
+    owner: "{{ application_user }}"
+    group: "{{ application_user }}"
+    mode: "0755"

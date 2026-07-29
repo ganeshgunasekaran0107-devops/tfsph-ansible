@@ -1,2 +1,7 @@
 ---
-# defaults file for roles/application
+application_name: tfsph
+application_user: ec2-user
+
+application_base_dir: /opt/tfsph
+application_config_dir: /opt/tfsph/config
+application_logs_dir: /opt/tfsph/logs
