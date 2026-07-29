@@ -1,2 +1,10 @@
 ---
-# defaults file for roles/jenkins
+jenkins_port: 8080
+jenkins_java_package: java-21-amazon-corretto-devel
+
+jenkins_base_packages:
+  - fontconfig
+  - git
+  - maven
+  - docker
+  - wget

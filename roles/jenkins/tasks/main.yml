@@ -1,2 +1,38 @@
 ---
-# tasks file for roles/jenkins
+- name: Install Jenkins prerequisites and CI packages
+  ansible.builtin.dnf:
+    name: "{{ jenkins_base_packages + [jenkins_java_package] }}"
+    state: present
+
+- name: Configure Jenkins LTS repository
+  ansible.builtin.get_url:
+    url: https://pkg.jenkins.io/rpm-stable/jenkins.repo
+    dest: /etc/yum.repos.d/jenkins.repo
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: Install Jenkins
+  ansible.builtin.dnf:
+    name: jenkins
+    state: present
+
+- name: Add Jenkins user to Docker group
+  ansible.builtin.user:
+    name: jenkins
+    groups: docker
+    append: true
+  notify:
+    - Restart Jenkins
+
+- name: Ensure Docker is enabled and running
+  ansible.builtin.systemd:
+    name: docker
+    state: started
+    enabled: true
+
+- name: Ensure Jenkins is enabled and running
+  ansible.builtin.systemd:
+    name: jenkins
+    state: started
+    enabled: true

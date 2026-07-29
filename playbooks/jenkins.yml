@@ -1,0 +1,7 @@
+---
+- name: Configure Jenkins CI/CD server
+  hosts: tag_name_tfsph_dev_management_server
+  become: true
+
+  roles:
+    - jenkins
