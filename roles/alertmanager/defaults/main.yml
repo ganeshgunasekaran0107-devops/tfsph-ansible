@@ -1,2 +1,18 @@
 ---
-# defaults file for roles/alertmanager
+alertmanager_version: "0.28.1"
+
+alertmanager_user: alertmanager
+alertmanager_group: alertmanager
+
+alertmanager_config_dir: /etc/alertmanager
+alertmanager_data_dir: /var/lib/alertmanager
+
+alertmanager_binary: /usr/local/bin/alertmanager
+amtool_binary: /usr/local/bin/amtool
+
+alertmanager_port: 9093
+
+alertmanager_gmail_secret_name: "tfsph/dev/alertmanager-gmail-app-password"
+
+# Replace this with the Gmail address you use for Alertmanager
+alertmanager_gmail_address: "ganeshgd9894@gmail.com"
