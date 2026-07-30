@@ -41,3 +41,29 @@
     owner: "{{ application_user }}"
     group: "{{ application_user }}"
     mode: "0755"
+
+- name: Create Docker CLI plugins directory
+  ansible.builtin.file:
+    path: "{{ docker_compose_plugin_dir }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Install Docker Compose v2 plugin
+  ansible.builtin.get_url:
+    url: "https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-linux-x86_64"
+    dest: "{{ docker_compose_binary }}"
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Verify Docker Compose installation
+  ansible.builtin.command:
+    cmd: docker compose version
+  register: docker_compose_check
+  changed_when: false
+
+- name: Display Docker Compose version
+  ansible.builtin.debug:
+    var: docker_compose_check.stdout

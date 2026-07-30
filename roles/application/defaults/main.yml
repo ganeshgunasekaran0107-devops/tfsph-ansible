@@ -5,3 +5,6 @@ application_user: ec2-user
 application_base_dir: /opt/tfsph
 application_config_dir: /opt/tfsph/config
 application_logs_dir: /opt/tfsph/logs
+docker_compose_version: "v2.39.1"
+docker_compose_plugin_dir: /usr/local/lib/docker/cli-plugins
+docker_compose_binary: "{{ docker_compose_plugin_dir }}/docker-compose"
