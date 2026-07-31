@@ -8,4 +8,3 @@ jenkins_base_packages:
   - maven
   - docker
   - wget
-trivy_version: "0.66.0"
