@@ -17,6 +17,31 @@
     name: jenkins
     state: present
 
+# -------------------------
+# Trivy Installation
+# -------------------------
+
+- name: Download Trivy RPM
+  ansible.builtin.get_url:
+    url: "https://github.com/aquasecurity/trivy/releases/download/v{{ trivy_version }}/trivy_{{ trivy_version }}_Linux-64bit.rpm"
+    dest: "/tmp/trivy-{{ trivy_version }}.rpm"
+    mode: "0644"
+
+- name: Install Trivy
+  ansible.builtin.dnf:
+    name: "/tmp/trivy-{{ trivy_version }}.rpm"
+    state: present
+    disable_gpg_check: true
+
+- name: Verify Trivy installation
+  ansible.builtin.command: trivy --version
+  register: trivy_version_output
+  changed_when: false
+
+- name: Display Trivy version
+  ansible.builtin.debug:
+    msg: "{{ trivy_version_output.stdout }}"
+
 - name: Add Jenkins user to Docker group
   ansible.builtin.user:
     name: jenkins
